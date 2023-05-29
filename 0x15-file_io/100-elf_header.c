@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <elf.h>
 
-// Print the ELF header information
 void print_header(Elf64_Ehdr *header)
 {
     printf("Magic:   ");
@@ -24,20 +23,17 @@ void print_header(Elf64_Ehdr *header)
 
 int main(int argc, char *argv[])
 {
-    // Check usage
     if (argc != 2) {
         fprintf(stderr, "Usage: %s elf_filename\n", argv[0]);
         exit(98);
     }
 
-    // Open the ELF file
     int fd = open(argv[1], O_RDONLY);
     if (fd == -1) {
         perror("open");
         exit(98);
     }
 
-    // Read the ELF header
     Elf64_Ehdr header;
     if (read(fd, &header, sizeof(header)) != sizeof(header)) {
         fprintf(stderr, "Error reading header from %s\n", argv[1]);
@@ -45,7 +41,6 @@ int main(int argc, char *argv[])
         exit(98);
     }
 
-    // Check that the file is actually an ELF file
     if (header.e_ident[EI_MAG0] != ELFMAG0 ||
         header.e_ident[EI_MAG1] != ELFMAG1 ||
         header.e_ident[EI_MAG2] != ELFMAG2 ||
@@ -55,10 +50,8 @@ int main(int argc, char *argv[])
         exit(98);
     }
 
-    // Print the ELF header information
     print_header(&header);
 
-    // Clean up and exit
     close(fd);
     return (0);
 }
