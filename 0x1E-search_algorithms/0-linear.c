@@ -8,7 +8,7 @@
  * @value: The value to search for.
  *
  * Return: If the value is not present or the array is NULL, -1.
- *         else, the first index where the value is located.
+ *         else, the first index where the value is located in the array.
  *
  * Description: Prints a value every time it is compared in the array.
  */
